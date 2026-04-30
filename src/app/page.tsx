@@ -1,6 +1,5 @@
 ﻿"use client";
 
-import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Leaf, Activity, Zap, BarChart3, Globe, ShieldCheck, Factory, Cpu, Waves } from "lucide-react";
 import { useRef } from "react";
@@ -199,7 +198,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Card 1 */}
              <motion.div whileHover={{ y: -10 }} className="group relative h-[480px] rounded-3xl overflow-hidden bg-slate-800">
-                <Image src="/solar.jpg" alt="Solar" fill className="object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500 group-hover:scale-110" />
+                <div className="absolute inset-0 transition-all duration-500 group-hover:scale-110 bg-gradient-to-br from-emerald-900/60 to-slate-900 opacity-80" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/50 to-transparent"></div>
                 <div className="absolute inset-0 p-8 flex flex-col justify-end">
                   <div className="w-12 h-12 bg-emerald-500/20 border border-emerald-400/50 backdrop-blur-md rounded-full flex items-center justify-center mb-6">
@@ -217,7 +216,7 @@ export default function Home() {
 
              {/* Card 2 */}
              <motion.div whileHover={{ y: -10 }} className="group relative h-[480px] rounded-3xl overflow-hidden bg-slate-800">
-                <Image src="/data.jpg" alt="Data CPU" fill className="object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500 group-hover:scale-110" />
+                <div className="absolute inset-0 transition-all duration-500 group-hover:scale-110 bg-gradient-to-br from-cyan-900/60 to-slate-900 opacity-80" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/50 to-transparent"></div>
                 <div className="absolute inset-0 p-8 flex flex-col justify-end">
                   <div className="w-12 h-12 bg-cyan-500/20 border border-cyan-400/50 backdrop-blur-md rounded-full flex items-center justify-center mb-6">
@@ -235,7 +234,7 @@ export default function Home() {
 
              {/* Card 3 */}
              <motion.div whileHover={{ y: -10 }} className="group relative h-[480px] rounded-3xl overflow-hidden bg-slate-800 lg:col-span-1 md:col-span-2">
-                <Image src="/trading.jpg" alt="Trading" fill className="object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500 group-hover:scale-110" />
+                <div className="absolute inset-0 transition-all duration-500 group-hover:scale-110 bg-gradient-to-br from-blue-900/60 to-slate-900 opacity-80" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/50 to-transparent"></div>
                 <div className="absolute inset-0 p-8 flex flex-col justify-end">
                   <div className="w-12 h-12 bg-blue-500/20 border border-blue-400/50 backdrop-blur-md rounded-full flex items-center justify-center mb-6">
