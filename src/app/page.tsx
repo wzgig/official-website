@@ -2,11 +2,16 @@ import Image from "next/image";
 import {
   Activity,
   BatteryCharging,
+  Building2,
   CheckCircle2,
   ChevronRight,
   Cpu,
+  Factory,
   FileCheck2,
   Gauge,
+  GraduationCap,
+  Handshake,
+  Landmark,
   Leaf,
   LineChart,
   Mail,
@@ -34,12 +39,12 @@ type Metric = {
 };
 
 const navItems: NavItem[] = [
-  { label: "产品", href: "#platform" },
+  { label: "产品", href: "#product" },
   { label: "方案", href: "#solutions" },
+  { label: "场景", href: "#scenarios" },
   { label: "零碳", href: "#carbon" },
-  { label: "能源", href: "#energy" },
   { label: "数字", href: "#digital" },
-  { label: "应用验证", href: "#validation" },
+  { label: "验证", href: "#validation" },
   { label: "关于我们", href: "#about" },
 ];
 
@@ -127,6 +132,70 @@ const validationItems = [
   "软件工作流程通过项目验收",
 ];
 
+const audienceCards: Capability[] = [
+  {
+    icon: Factory,
+    kicker: "Park Operator",
+    title: "工业园区与企业集群",
+    text: "适用于用电负荷集中、分时电价敏感、具备储能或可调负荷资源的园区场景。",
+  },
+  {
+    icon: Landmark,
+    kicker: "Government",
+    title: "园区管委会与地方平台",
+    text: "为零碳园区建设、能源低碳转型评估和示范项目汇报提供可量化的数据支撑。",
+  },
+  {
+    icon: Building2,
+    kicker: "Aggregator",
+    title: "负荷聚合商与售电公司",
+    text: "把分散用户侧资源聚合为可申报、可结算、可评价的辅助服务能力。",
+  },
+  {
+    icon: Handshake,
+    kicker: "Energy Group",
+    title: "能源集团与储能运营方",
+    text: "连接发电侧、交易侧和用电侧，提升储能调度、现货交易和调频参与的协同效率。",
+  },
+];
+
+const productModules = [
+  "市场准入核验",
+  "电能-调频联合出清",
+  "碳流核算与责任分摊",
+  "LA需求响应建模",
+  "补偿惩罚与结算报表",
+  "市场行为评价与风险预警",
+];
+
+const researchProofs: Capability[] = [
+  {
+    icon: GraduationCap,
+    kicker: "Team",
+    title: "电力系统交叉团队",
+    text: "团队围绕工业园区电力服务平台持续开展算法研发、调研验证和商业化路径设计。",
+  },
+  {
+    icon: FileCheck2,
+    kicker: "Research",
+    title: "论文与专利布局",
+    text: "围绕联合出清、碳流核算和调频响应形成研究积累，为产品算法提供技术底座。",
+  },
+  {
+    icon: Network,
+    kicker: "Lab Support",
+    title: "实验平台与外部调研",
+    text: "结合供电局、发电厂和企业调研材料，持续校准模型输入、业务流程和验证指标。",
+  },
+];
+
+const cooperationSteps = [
+  "园区负荷与资源盘点",
+  "数据接入与模型定制",
+  "模拟出清与收益评估",
+  "平台试运行与报表交付",
+];
+
 function LogoMark({ light = false }: { light?: boolean }) {
   return (
     <a href="#home" className="flex items-center gap-3">
@@ -179,6 +248,12 @@ function Header() {
             <Mail className="size-4" aria-hidden="true" />
           </a>
         </div>
+        <a
+          href="#contact"
+          className="rounded-full border border-white/30 px-4 py-2 text-sm font-medium text-white/90 transition hover:border-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white lg:hidden"
+        >
+          合作
+        </a>
       </div>
     </header>
   );
@@ -259,7 +334,7 @@ function CarbonIntro() {
         <SectionTitle
           eyebrow="Carbon Neutral Operation"
           title="让零碳园区更经济，也更可验证"
-          description="金风科技官网的零碳叙事强调经济性和场景落地。智碳联算的差异化，是把园区低碳电能、调频辅助服务、碳流核算和需求响应放进同一套市场模型。"
+          description="零碳园区建设不能停留在形象展示。智碳联算把低碳电能、调频辅助服务、碳流核算和需求响应放进同一套市场模型，让减碳收益可计算、可追踪、可复盘。"
         />
 
         <div className="mt-16 grid gap-6 md:grid-cols-3">
@@ -268,6 +343,85 @@ function CarbonIntro() {
               <p className="text-5xl font-semibold tracking-tight text-emerald-800">{metric.value}</p>
               <h3 className="mt-5 text-xl font-semibold text-slate-950">{metric.label}</h3>
               <p className="mt-3 leading-7 text-slate-600">{metric.note}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProductSuite() {
+  return (
+    <section id="product" className="bg-[#081a14] px-5 py-24 text-white md:py-32">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div>
+            <p className="mb-5 text-sm font-semibold uppercase tracking-[0.28em] text-emerald-200">
+              Product System
+            </p>
+            <h2 className="text-balance text-4xl font-semibold tracking-tight md:text-6xl">
+              不只展示数据，而是输出可执行的市场策略
+            </h2>
+            <p className="mt-6 text-pretty text-lg leading-8 text-emerald-50/76">
+              智碳联算的产品核心不是普通能耗看板，而是面向园区交易、调频和碳成本的联合决策系统。
+            </p>
+
+            <div className="mt-10 grid gap-3 sm:grid-cols-2">
+              {productModules.map((module) => (
+                <div key={module} className="border border-white/14 px-5 py-4">
+                  <CheckCircle2 className="mb-5 size-5 text-emerald-300" aria-hidden="true" />
+                  <p className="font-semibold text-white">{module}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative min-h-[520px] overflow-hidden bg-emerald-950">
+            <Image
+              src="/official-website/images/energy-control-room.png"
+              alt="能源运营控制中心与数字化平台界面"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/62 via-transparent to-black/10" />
+            <div className="absolute bottom-0 left-0 p-8 md:p-10">
+              <p className="text-sm font-semibold uppercase tracking-[0.26em] text-emerald-200">
+                Energy Operation Console
+              </p>
+              <p className="mt-3 max-w-xl text-2xl font-semibold leading-9">
+                把园区负荷、储能、碳流和交易报价统一到一套运营中枢。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Scenarios() {
+  return (
+    <section id="scenarios" className="bg-white px-5 py-24 md:py-32">
+      <div className="mx-auto max-w-7xl">
+        <SectionTitle
+          eyebrow="Applicable Scenarios"
+          title="服务园区低碳转型中的多方参与者"
+          description="面向政府园区、企业集群、负荷聚合商与能源运营方，提供从模型测算到平台试运行的低碳电力服务能力。"
+        />
+
+        <div className="mt-16 grid gap-px bg-slate-200 md:grid-cols-2 lg:grid-cols-4">
+          {audienceCards.map((item) => (
+            <article key={item.title} className="bg-white p-7">
+              <item.icon className="mb-10 size-8 text-emerald-700" aria-hidden="true" />
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-700">
+                {item.kicker}
+              </p>
+              <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">
+                {item.title}
+              </h3>
+              <p className="mt-4 leading-8 text-slate-600">{item.text}</p>
             </article>
           ))}
         </div>
@@ -289,7 +443,7 @@ function Solutions() {
               三类减碳能力，一套市场出清平台
             </h2>
             <p className="mt-6 text-pretty text-lg leading-8 text-slate-600">
-              首屏向金风式大图靠拢，内容区保留我们的技术真实度：用模型把源、网、荷、储、碳和交易连接起来。
+              从园区用电计划、储能与可调负荷，到碳流核算和交易出清，形成一条可解释的低碳经营链路。
             </p>
           </div>
 
@@ -337,7 +491,7 @@ function EnergyPlatform() {
             </div>
           </div>
 
-          <div id="platform">
+          <div>
             <p className="mb-5 text-sm font-semibold uppercase tracking-[0.28em] text-emerald-700">
               Platform Workflow
             </p>
@@ -381,7 +535,7 @@ function DigitalModel() {
               数字化不是看板，而是自动出清和交易控制
             </h2>
             <p className="mt-6 text-pretty text-lg leading-8 text-slate-300">
-              参考金风数字能源页面的“感知、预测、策略、控制”表达，我们把它落到园区电能与调频联合出清：从数据准备到模型结果，形成可审计的决策链路。
+              从感知、预测、策略到控制，平台将园区电能与调频联合出清落到可审计的决策链路中。
             </p>
           </div>
 
@@ -458,6 +612,43 @@ function Validation() {
   );
 }
 
+function ResearchProof() {
+  return (
+    <section className="bg-white px-5 py-24 md:py-32">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <div>
+            <p className="mb-5 text-sm font-semibold uppercase tracking-[0.28em] text-emerald-700">
+              Research Foundation
+            </p>
+            <h2 className="text-balance text-4xl font-semibold tracking-tight text-slate-950 md:text-6xl">
+              用科研模型支撑商业场景落地
+            </h2>
+            <p className="mt-6 text-pretty text-lg leading-8 text-slate-600">
+              面向电力现货、辅助服务和碳排责任协同优化，团队持续把论文模型、调研数据和软件流程转化为可交付的平台能力。
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            {researchProofs.map((item) => (
+              <article key={item.title} className="border-t border-slate-200 pt-8">
+                <item.icon className="mb-10 size-8 text-emerald-700" aria-hidden="true" />
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-700">
+                  {item.kicker}
+                </p>
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">
+                  {item.title}
+                </h3>
+                <p className="mt-4 leading-8 text-slate-600">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function About() {
   return (
     <section id="about" className="bg-white px-5 py-24 md:py-32">
@@ -487,6 +678,42 @@ function About() {
               ))}
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Cooperation() {
+  return (
+    <section className="bg-[#f4f8f5] px-5 py-24 md:py-32">
+      <div className="mx-auto max-w-7xl">
+        <SectionTitle
+          eyebrow="Cooperation Path"
+          title="从园区资源盘点到平台试运行"
+          description="先用数据和模拟出清证明价值，再逐步进入定制模型、试运行与持续运维，降低园区低碳电力服务的落地成本。"
+        />
+
+        <div className="mt-16 grid gap-px bg-emerald-900/16 md:grid-cols-4">
+          {cooperationSteps.map((step, index) => (
+            <article key={step} className="bg-[#f4f8f5] p-7">
+              <p className="text-sm font-semibold text-emerald-700">
+                {String(index + 1).padStart(2, "0")}
+              </p>
+              <h3 className="mt-8 text-2xl font-semibold tracking-tight text-slate-950">
+                {step}
+              </h3>
+              <p className="mt-4 leading-8 text-slate-600">
+                {index === 0
+                  ? "梳理园区负荷曲线、储能资源、用电计划和市场参与边界。"
+                  : index === 1
+                    ? "完成数据接入、安全认证、模型参数校准和业务流程配置。"
+                    : index === 2
+                      ? "输出成本、收益、碳排和可调资源利用率的模拟测算结果。"
+                      : "形成试运行报表、交易辅助建议和后续迭代计划。"}
+              </p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -543,11 +770,15 @@ export default function Home() {
     <main className="min-h-screen bg-white text-slate-950">
       <Hero />
       <CarbonIntro />
+      <ProductSuite />
+      <Scenarios />
       <Solutions />
       <EnergyPlatform />
       <DigitalModel />
       <Validation />
+      <ResearchProof />
       <About />
+      <Cooperation />
       <Contact />
       <Footer />
     </main>
