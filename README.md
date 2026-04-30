@@ -1,22 +1,31 @@
-﻿# 长沙智碳联算科技有限公司 (Zhi Carbon Union Technology) - 官方网站
+# 长沙智碳联算科技有限责任公司官网
 
-## 项目简介
+面向工业园区的低碳电能与调频联合市场出清系统展示官网。
 
-这是为**长沙智碳联算科技有限公司**打造的高端现代化官方网站。网站专注于“低碳电能管理、调频及电力交易全栈式解决方案”，致力于展示企业在零碳工业园区、绿电绿证交易以及储能等领域的专业性和科技感。
+## 在线地址
 
-本网站以深色系（Slate-900）为基调，搭配霓虹发光节点、磨砂玻璃拟态（Glassmorphism）和高性能滚动动画，力求实现行业标杆（对标金风科技、远景能源、华为等）的前沿视觉体验。
+https://wzgig.github.io/official-website/
 
-## 🌐 网站在线访问地址
-**[🟢 点击这里访问在线官网 (GitHub Pages)](https://wzgig.github.io/official-website/)**
+## 本轮改版方向
 
-## 核心技术栈
-- **框架**: Next.js 16 (App Router)
-- **样式**: Tailwind CSS
-- **动画**: Framer Motion
-- **部署**: GitHub Actions + GitHub Pages 全自动化静态部署
+- 将首页从概念化科技大屏，重构为产业公司官网：首页、解决方案、产品平台、技术模型、应用验证、团队与合作入口。
+- 使用项目材料中的真实业务表达：低碳电能管理、调频辅助服务、碳流核算、LA 需求响应、市场行为评价。
+- 新增本地生成的低碳工业园区主视觉，避免依赖远程占位图片。
+- 保留 GitHub Pages 静态导出配置，并显式处理 `/official-website` 子路径资源。
 
-## 部署状态
-当前项目通过 `.github/workflows/deploy.yml` 支持自动化部署。每当推送 `main` 分支时，系统会自动进行静态导出并部署至上述链接。如需访问，请确保 GitHub 仓库的 Pages 设置中的源设定为 "GitHub Actions"。
+## 技术栈
 
-## 版权说明
-© 2026 长沙智碳联算科技有限公司 版权所有。
+- Next.js App Router
+- React
+- Tailwind CSS
+- lucide-react
+
+## 常用命令
+
+```bash
+npm run lint
+npx tsc --noEmit
+npm run build
+```
+
+当前开发环境的 Windows 沙箱会在 Next.js 子进程启动处触发 `spawn EPERM`，因此 `npm run build` 和 `npm run dev` 可能需要在普通终端中运行。
