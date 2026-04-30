@@ -1,23 +1,31 @@
 import Image from "next/image";
 import {
   Activity,
-  ArrowRight,
   BatteryCharging,
-  Building2,
   CheckCircle2,
   ChevronRight,
-  CircleDollarSign,
   Cpu,
   FileCheck2,
   Gauge,
   Leaf,
   LineChart,
+  Mail,
   Network,
   RadioTower,
-  ShieldCheck,
-  Sparkles,
   type LucideIcon,
 } from "lucide-react";
+
+type NavItem = {
+  label: string;
+  href: string;
+};
+
+type Capability = {
+  icon: LucideIcon;
+  kicker: string;
+  title: string;
+  text: string;
+};
 
 type Metric = {
   value: string;
@@ -25,24 +33,14 @@ type Metric = {
   note: string;
 };
 
-type NavItem = {
-  label: string;
-  href: string;
-};
-
-type Feature = {
-  icon: LucideIcon;
-  title: string;
-  text: string;
-};
-
 const navItems: NavItem[] = [
-  { label: "首页", href: "#home" },
-  { label: "解决方案", href: "#solutions" },
-  { label: "产品平台", href: "#platform" },
-  { label: "技术模型", href: "#technology" },
+  { label: "产品", href: "#platform" },
+  { label: "方案", href: "#solutions" },
+  { label: "零碳", href: "#carbon" },
+  { label: "能源", href: "#energy" },
+  { label: "数字", href: "#digital" },
   { label: "应用验证", href: "#validation" },
-  { label: "团队", href: "#team" },
+  { label: "关于我们", href: "#about" },
 ];
 
 const heroMetrics: Metric[] = [
@@ -58,165 +56,129 @@ const heroMetrics: Metric[] = [
   },
   {
     value: "96",
-    label: "24小时实时价格节点",
+    label: "24小时价格节点",
     note: "适配日前、日内、实时市场节奏",
   },
 ];
 
-const challengeCards: Feature[] = [
+const capabilities: Capability[] = [
   {
     icon: Gauge,
-    title: "电价高频波动",
-    text: "现货市场日内价格变化频繁，园区需要把用电计划、负荷响应和报价策略放在同一个决策框架内。",
+    kicker: "Demand",
+    title: "负荷计划优化",
+    text: "把园区24小时用电计划、分时电价和用户响应约束放入统一模型，辅助形成更稳健的用能策略。",
   },
   {
     icon: RadioTower,
-    title: "调频资源在用电侧释放不足",
-    text: "新能源并网提升了频率波动压力，园区储能和可调负荷可以从成本中心转为辅助服务资源。",
+    kicker: "Frequency",
+    title: "调频资源聚合",
+    text: "挖掘储能、可调负荷和需求响应能力，将用电侧弹性转化为可申报、可评价的辅助服务资源。",
   },
   {
     icon: Leaf,
-    title: "碳属性追踪与核算困难",
-    text: "低碳电能消纳不能只看电量，还要计算碳流、碳排责任和用户侧响应带来的减排收益。",
+    kicker: "Carbon",
+    title: "碳流核算激励",
+    text: "基于节点碳势、支路碳流和用户碳排责任，建立电量、调频和碳成本联动的低碳激励机制。",
+  },
+  {
+    icon: Cpu,
+    kicker: "Clearing",
+    title: "联合市场出清",
+    text: "融合电能量市场、调频市场、碳成本与需求响应，输出中标容量、价格和主体出力计划。",
   },
 ];
 
-const solutionCards: Feature[] = [
-  {
-    icon: Building2,
-    title: "工业园区低碳电能管理",
-    text: "接入园区负荷、分布式能源和储能数据，生成面向电能量市场的分时用电计划与成本优化策略。",
-  },
-  {
-    icon: BatteryCharging,
-    title: "用电侧调频辅助服务",
-    text: "把可调负荷和储能能力转换为调频申报容量，参与辅助服务市场并形成可量化收益。",
-  },
-  {
-    icon: CircleDollarSign,
-    title: "联合市场出清与交易辅助",
-    text: "融合电能、调频、碳成本和用户响应约束，输出中标价格、中标容量和发电主体出力计划。",
-  },
-];
-
-const platformSteps = [
-  "数据输入",
+const workflow = [
+  "数据接入",
   "市场准入核验",
   "碳流率计算",
   "联合市场出清",
   "响应量返回",
-  "补偿与惩罚计算",
-  "市场行为评价",
-  "报表输出",
+  "补偿惩罚",
+  "行为评价",
+  "结算报表",
 ];
 
-const modelLayers: Feature[] = [
+const modelLayers: Capability[] = [
   {
     icon: Network,
+    kicker: "Carbon Flow",
     title: "电力系统碳排放流模型",
-    text: "建立负荷分布、机组注入和线路潮流矩阵，计算节点碳势、支路碳流与系统碳排放量。",
+    text: "建立负荷分布、机组注入和线路潮流矩阵，计算节点碳势、支路碳流和系统碳排放量。",
   },
   {
-    icon: Cpu,
+    icon: Activity,
+    kicker: "Market Model",
     title: "电能-调频联合出清模型",
     text: "在发电主体、负荷聚合商和系统调频需求之间协同优化交易成本、调频成本和碳排成本。",
   },
   {
-    icon: Activity,
+    icon: BatteryCharging,
+    kicker: "Response",
     title: "LA 需求响应模型",
     text: "以碳排放责任为激励，引导用户削峰填谷并更新响应后的负荷需求曲线。",
-  },
-  {
-    icon: ShieldCheck,
-    title: "市场行为评价与风险预警",
-    text: "监测价格波动和交易行为，辅助判断调频性能、收益空间和异常报价风险。",
   },
 ];
 
 const validationItems = [
-  "2024年8月开展供电局交易侧调研",
-  "2024年12月开展发电厂与公司交涉调研",
+  "2024年8月完成供电局交易侧调研",
+  "2024年12月完成发电侧与企业调研",
   "2023-2025年持续开发核心模型",
-  "软件流程通过项目验收并形成演示系统",
+  "软件工作流程通过项目验收",
 ];
 
-const teamHighlights = [
-  "长沙理工大学电气工程与人工智能交叉团队",
-  "指导教师覆盖电力系统、学生创新创业和科研项目经验",
-  "围绕联合出清、碳流核算和调频响应发表论文、布局专利",
-  "国家重点实验室平台支持，具备持续吸收交叉学科人才能力",
-];
-
-function SectionHeader({
-  eyebrow,
-  title,
-  description,
-  align = "left",
-}: {
-  eyebrow: string;
-  title: string;
-  description?: string;
-  align?: "left" | "center";
-}) {
+function LogoMark({ light = false }: { light?: boolean }) {
   return (
-    <div
-      className={`mx-auto max-w-3xl ${align === "center" ? "text-center" : ""}`}
-    >
-      <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-emerald-700">
-        {eyebrow}
-      </p>
-      <h2 className="text-balance text-3xl font-semibold tracking-tight text-slate-950 md:text-5xl">
-        {title}
-      </h2>
-      {description ? (
-        <p className="mt-5 text-pretty text-base leading-8 text-slate-600 md:text-lg">
-          {description}
-        </p>
-      ) : null}
-    </div>
+    <a href="#home" className="flex items-center gap-3">
+      <span
+        className={`flex size-10 items-center justify-center rounded-full border ${
+          light ? "border-white/55 text-white" : "border-emerald-800 text-emerald-800"
+        }`}
+      >
+        <Leaf className="size-5" aria-hidden="true" />
+      </span>
+      <span className="leading-none">
+        <span className="block text-lg font-semibold tracking-tight">智碳联算</span>
+        <span
+          className={`mt-1 block text-[11px] font-medium uppercase tracking-[0.32em] ${
+            light ? "text-white/78" : "text-slate-500"
+          }`}
+        >
+          ZhiCarbon Union
+        </span>
+      </span>
+    </a>
   );
 }
 
-function SiteHeader() {
+function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/90 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-4 lg:h-20 lg:flex-row lg:items-center lg:justify-between lg:py-0">
-        <a href="#home" className="flex items-center gap-3">
-          <span className="flex size-11 items-center justify-center rounded-lg bg-emerald-700 text-white shadow-sm">
-            <Leaf className="size-6" aria-hidden="true" />
-          </span>
-          <span className="flex flex-col">
-            <span className="text-lg font-semibold tracking-tight text-slate-950">
-              智碳联算
-            </span>
-            <span className="text-xs font-medium uppercase tracking-[0.22em] text-slate-500">
-              ZhiCarbon Union
-            </span>
-          </span>
-        </a>
-
+    <header className="absolute inset-x-0 top-0 z-50 text-white">
+      <div className="mx-auto flex max-w-[1680px] items-center justify-between px-6 py-6 lg:px-16">
+        <LogoMark light />
         <nav
           aria-label="主导航"
-          className="flex gap-1 overflow-x-auto pb-1 text-sm font-medium text-slate-600 lg:gap-7 lg:overflow-visible lg:pb-0"
+          className="hidden items-center gap-8 text-sm font-medium text-white/88 lg:flex"
         >
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-emerald-50 hover:text-emerald-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700 lg:px-0 lg:hover:bg-transparent"
+              className="transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
             >
               {item.label}
             </a>
           ))}
         </nav>
-
-        <a
-          href="#contact"
-          className="hidden items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700 lg:inline-flex"
-        >
-          项目合作
-          <ArrowRight className="size-4" aria-hidden="true" />
-        </a>
+        <div className="hidden items-center gap-4 text-white/85 lg:flex">
+          <a
+            href="#contact"
+            aria-label="联系合作"
+            className="rounded-full border border-white/30 p-2.5 transition hover:border-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          >
+            <Mail className="size-4" aria-hidden="true" />
+          </a>
+        </div>
       </div>
     </header>
   );
@@ -224,146 +186,124 @@ function SiteHeader() {
 
 function Hero() {
   return (
-    <section id="home" className="relative isolate overflow-hidden bg-slate-950 text-white">
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src="/official-website/images/low-carbon-industrial-park.png"
-          alt="低碳工业园区、储能和能源数据流组成的官网主视觉"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/82 to-slate-950/20" />
-        <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-slate-950 to-transparent" />
+    <section id="home" className="relative isolate min-h-screen overflow-hidden bg-emerald-950 text-white">
+      <Image
+        src="/official-website/images/zhicarbon-eco-hero.png"
+        alt="森林河谷、远处风机和能源数据流组成的智碳联算官网首屏视觉"
+        fill
+        priority
+        sizes="100vw"
+        className="absolute inset-0 -z-20 object-cover object-center"
+      />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/58 via-black/18 to-black/58" />
+      <div className="absolute inset-x-0 top-0 -z-10 h-36 bg-gradient-to-b from-black/55 to-transparent" />
+
+      <Header />
+
+      <div className="mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-5 text-center">
+        <p className="mb-8 rounded-full border border-white/28 bg-white/8 px-5 py-2 text-sm font-medium tracking-[0.24em] text-white/88 backdrop-blur">
+          面向工业园区的低碳电能与调频联合市场出清系统
+        </p>
+        <h1 className="text-balance text-6xl font-semibold tracking-tight md:text-8xl">
+          智碳联算
+        </h1>
+        <p className="mt-8 max-w-3xl text-pretty text-lg leading-8 text-white/86 md:text-2xl md:leading-10">
+          让园区零碳运营更可计算，让低碳电能、调频资源与碳成本进入同一张经营账。
+        </p>
       </div>
 
-      <div className="mx-auto grid min-h-[calc(100vh-88px)] max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[1.02fr_0.98fr] lg:py-28">
-        <div>
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-emerald-100 shadow-sm backdrop-blur">
-            <Sparkles className="size-4 text-emerald-300" aria-hidden="true" />
-            面向工业园区的低碳电能与调频联合市场出清系统
-          </div>
-
-          <h1 className="max-w-4xl text-balance text-4xl font-semibold tracking-tight md:text-6xl lg:text-7xl">
-            让园区低碳电能与调频收益进入同一张运营账
-          </h1>
-
-          <p className="mt-7 max-w-2xl text-pretty text-lg leading-8 text-slate-200 md:text-xl">
-            智碳联算以电力市场出清、碳流核算、需求响应和负荷聚合算法为核心，
-            为工业园区提供可验证、可结算、可持续升级的能源交易辅助平台。
-          </p>
-
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <a
-              href="#platform"
-              className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-slate-950 transition hover:bg-emerald-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-            >
-              查看产品流程
-              <ArrowRight className="size-4" aria-hidden="true" />
-            </a>
-            <a
-              href="#validation"
-              className="inline-flex items-center justify-center gap-3 rounded-full border border-white/25 px-6 py-3.5 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-            >
-              应用验证
-              <FileCheck2 className="size-4" aria-hidden="true" />
-            </a>
-          </div>
-        </div>
-
-        <div className="rounded-2xl border border-white/15 bg-slate-950/62 p-4 shadow-2xl backdrop-blur-xl lg:justify-self-end">
-          <div className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
-            <div className="mb-5 flex items-center justify-between gap-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-300">
-                  Market Clearing Console
-                </p>
-                <h2 className="mt-2 text-xl font-semibold">园区联合出清驾驶舱</h2>
-              </div>
-              <span className="rounded-full bg-emerald-400/15 px-3 py-1 text-xs font-semibold text-emerald-200">
-                模拟运行
-              </span>
+      <div className="absolute inset-x-0 bottom-8 hidden px-6 lg:block">
+        <div className="mx-auto grid max-w-5xl grid-cols-3 border-y border-white/28 bg-black/18 text-white backdrop-blur-md">
+          {heroMetrics.map((metric) => (
+            <div key={metric.label} className="border-r border-white/20 px-8 py-5 last:border-r-0">
+              <p className="text-3xl font-semibold">{metric.value}</p>
+              <p className="mt-2 text-sm text-white/78">{metric.label}</p>
             </div>
-
-            <div className="grid gap-3">
-              {[
-                ["日前电能计划", "24h 负荷曲线", "78%"],
-                ["调频申报容量", "储能 + 可调负荷", "83%"],
-                ["碳成本激励", "节点碳势核算", "4.29%"],
-              ].map(([title, label, value]) => (
-                <div
-                  key={title}
-                  className="rounded-xl border border-white/10 bg-white/[0.04] p-4"
-                >
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="font-medium text-slate-200">{title}</span>
-                    <span className="font-semibold text-emerald-200">{value}</span>
-                  </div>
-                  <div className="mt-3 h-2 rounded-full bg-slate-800">
-                    <span className="block h-full w-4/5 rounded-full bg-gradient-to-r from-emerald-400 to-sky-400" />
-                  </div>
-                  <p className="mt-2 text-xs text-slate-400">{label}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-5 grid grid-cols-3 gap-3 text-center">
-              {heroMetrics.map((metric) => (
-                <div
-                  key={metric.label}
-                  className="rounded-xl border border-white/10 bg-slate-950/60 p-3"
-                >
-                  <p className="text-lg font-semibold text-white">{metric.value}</p>
-                  <p className="mt-1 text-xs leading-5 text-slate-400">{metric.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-function MetricBand() {
+function SectionTitle({
+  eyebrow,
+  title,
+  description,
+}: {
+  eyebrow: string;
+  title: string;
+  description?: string;
+}) {
   return (
-    <section className="border-y border-slate-200 bg-white">
-      <div className="mx-auto grid max-w-7xl divide-y divide-slate-200 px-5 md:grid-cols-3 md:divide-x md:divide-y-0">
-        {heroMetrics.map((metric) => (
-          <div key={metric.label} className="py-8 md:px-8">
-            <p className="text-4xl font-semibold tracking-tight text-slate-950">
-              {metric.value}
-            </p>
-            <p className="mt-2 font-semibold text-slate-800">{metric.label}</p>
-            <p className="mt-2 text-sm leading-6 text-slate-500">{metric.note}</p>
-          </div>
-        ))}
-      </div>
-    </section>
+    <div className="mx-auto max-w-4xl text-center">
+      <p className="mb-5 text-sm font-semibold uppercase tracking-[0.28em] text-emerald-700">
+        {eyebrow}
+      </p>
+      <h2 className="text-balance text-4xl font-semibold tracking-tight text-slate-950 md:text-6xl">
+        {title}
+      </h2>
+      {description ? (
+        <p className="mx-auto mt-6 max-w-3xl text-pretty text-lg leading-8 text-slate-600">
+          {description}
+        </p>
+      ) : null}
+    </div>
   );
 }
 
-function Challenges() {
+function CarbonIntro() {
   return (
-    <section className="bg-slate-50 px-5 py-24">
+    <section id="carbon" className="bg-white px-5 py-24 md:py-32">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
-          <SectionHeader
-            eyebrow="Industry Challenge"
-            title="电力现货、辅助服务和碳约束同时进入园区经营"
-            description="工业园区用电占比高、价格波动密集、低碳电能消纳和调频资源释放仍有缺口。智碳联算把这些变量统一放进一套可计算的市场模型中。"
-          />
+        <SectionTitle
+          eyebrow="Carbon Neutral Operation"
+          title="让零碳园区更经济，也更可验证"
+          description="金风科技官网的零碳叙事强调经济性和场景落地。智碳联算的差异化，是把园区低碳电能、调频辅助服务、碳流核算和需求响应放进同一套市场模型。"
+        />
 
-          <div className="grid gap-4 md:grid-cols-3">
-            {challengeCards.map((card) => (
-              <article
-                key={card.title}
-                className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
-              >
-                <card.icon className="mb-5 size-7 text-emerald-700" aria-hidden="true" />
-                <h3 className="text-lg font-semibold text-slate-950">{card.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{card.text}</p>
+        <div className="mt-16 grid gap-6 md:grid-cols-3">
+          {heroMetrics.map((metric) => (
+            <article key={metric.label} className="border-t border-slate-200 pt-8">
+              <p className="text-5xl font-semibold tracking-tight text-emerald-800">{metric.value}</p>
+              <h3 className="mt-5 text-xl font-semibold text-slate-950">{metric.label}</h3>
+              <p className="mt-3 leading-7 text-slate-600">{metric.note}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Solutions() {
+  return (
+    <section id="solutions" className="bg-[#f4f8f5] px-5 py-24 md:py-32">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-14 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
+          <div>
+            <p className="mb-5 text-sm font-semibold uppercase tracking-[0.28em] text-emerald-700">
+              Solutions
+            </p>
+            <h2 className="text-balance text-4xl font-semibold tracking-tight text-slate-950 md:text-6xl">
+              三类减碳能力，一套市场出清平台
+            </h2>
+            <p className="mt-6 text-pretty text-lg leading-8 text-slate-600">
+              首屏向金风式大图靠拢，内容区保留我们的技术真实度：用模型把源、网、荷、储、碳和交易连接起来。
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-2">
+            {capabilities.map((item) => (
+              <article key={item.title} className="bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-950/10">
+                <item.icon className="mb-9 size-8 text-emerald-700" aria-hidden="true" />
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-700">
+                  {item.kicker}
+                </p>
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">
+                  {item.title}
+                </h3>
+                <p className="mt-4 leading-8 text-slate-600">{item.text}</p>
               </article>
             ))}
           </div>
@@ -373,93 +313,51 @@ function Challenges() {
   );
 }
 
-function Solutions() {
+function EnergyPlatform() {
   return (
-    <section id="solutions" className="bg-white px-5 py-24">
+    <section id="energy" className="bg-white px-5 py-24 md:py-32">
       <div className="mx-auto max-w-7xl">
-        <SectionHeader
-          eyebrow="Solutions"
-          title="从园区用电计划到市场收益结算的完整方案"
-          description="以负荷聚合商为运营抓手，连接发电主体、交易中心、监管机构和园区用户，帮助园区在电能量市场与辅助服务市场中获得更清晰的决策依据。"
-          align="center"
-        />
+        <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div className="relative min-h-[520px] overflow-hidden bg-emerald-950">
+            <Image
+              src="/official-website/images/low-carbon-industrial-park.png"
+              alt="低碳工业园区、储能和电力设施"
+              fill
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/72 via-black/18 to-transparent" />
+            <div className="absolute bottom-0 left-0 max-w-xl p-8 text-white md:p-12">
+              <p className="text-sm font-semibold uppercase tracking-[0.26em] text-white/72">
+                Industrial Park Energy
+              </p>
+              <h2 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
+                从耗能园区到可调资源池
+              </h2>
+            </div>
+          </div>
 
-        <div className="mt-14 grid gap-5 lg:grid-cols-3">
-          {solutionCards.map((card, index) => (
-            <article
-              key={card.title}
-              className="group rounded-2xl border border-slate-200 bg-slate-50 p-7 transition hover:-translate-y-1 hover:border-emerald-200 hover:bg-white hover:shadow-xl hover:shadow-emerald-950/10"
-            >
-              <div className="mb-8 flex items-center justify-between">
-                <span className="flex size-12 items-center justify-center rounded-xl bg-emerald-700 text-white">
-                  <card.icon className="size-6" aria-hidden="true" />
-                </span>
-                <span className="text-sm font-semibold text-slate-400">
-                  0{index + 1}
-                </span>
-              </div>
-              <h3 className="text-2xl font-semibold tracking-tight text-slate-950">
-                {card.title}
-              </h3>
-              <p className="mt-4 leading-8 text-slate-600">{card.text}</p>
-              <a
-                href="#platform"
-                className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-emerald-800"
-              >
-                查看平台模块
-                <ChevronRight className="size-4 transition group-hover:translate-x-1" aria-hidden="true" />
-              </a>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Platform() {
-  return (
-    <section id="platform" className="bg-slate-950 px-5 py-24 text-white">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-          <div>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-emerald-300">
-              Product Platform
+          <div id="platform">
+            <p className="mb-5 text-sm font-semibold uppercase tracking-[0.28em] text-emerald-700">
+              Platform Workflow
             </p>
-            <h2 className="text-balance text-3xl font-semibold tracking-tight md:text-5xl">
-              把市场交易出清流程做成可落地的软件工作台
+            <h2 className="text-balance text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">
+              把交易流程做成可落地的软件工作台
             </h2>
-            <p className="mt-5 text-pretty text-base leading-8 text-slate-300 md:text-lg">
-              平台围绕“数据接入及安全认证、市场准入核验、联合出清、需求响应、
-              补偿惩罚与评价分析”构建，输出电力交易结算和园区运营建议。
+            <p className="mt-6 text-pretty text-lg leading-8 text-slate-600">
+              平台围绕市场准入、联合出清、需求响应、补偿惩罚和评价分析构建，输出电力交易结算与园区运营建议。
             </p>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
-              {["发电企业", "电力交易中心", "园区负荷", "监管机构"].map((role) => (
-                <div key={role} className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] p-4">
-                  <CheckCircle2 className="size-5 text-emerald-300" aria-hidden="true" />
-                  <span className="font-medium text-slate-200">{role}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-5 shadow-2xl">
-            <div className="grid gap-3 sm:grid-cols-2">
-              {platformSteps.map((step, index) => (
-                <div
-                  key={step}
-                  className="relative rounded-2xl border border-white/10 bg-slate-900 p-5"
-                >
-                  <span className="mb-6 flex size-9 items-center justify-center rounded-full bg-emerald-400/15 text-sm font-semibold text-emerald-200">
-                    {index + 1}
+            <div className="mt-10 space-y-0 border-y border-slate-200">
+              {workflow.map((step, index) => (
+                <div key={step} className="grid grid-cols-[4rem_1fr] border-b border-slate-200 py-5 last:border-b-0">
+                  <span className="text-sm font-semibold text-emerald-700">
+                    {String(index + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="text-lg font-semibold">{step}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-400">
-                    {index % 2 === 0
-                      ? "形成可追溯的数据基础与模型输入。"
-                      : "输出面向交易与运营的决策结果。"}
-                  </p>
+                  <div className="flex items-center justify-between gap-6">
+                    <span className="text-lg font-semibold text-slate-950">{step}</span>
+                    <ChevronRight className="size-5 text-slate-400" aria-hidden="true" />
+                  </div>
                 </div>
               ))}
             </div>
@@ -470,30 +368,36 @@ function Platform() {
   );
 }
 
-function Technology() {
+function DigitalModel() {
   return (
-    <section id="technology" className="bg-white px-5 py-24">
+    <section id="digital" className="bg-slate-950 px-5 py-24 text-white md:py-32">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-          <SectionHeader
-            eyebrow="Technology"
-            title="核心壁垒来自联合出清模型，而不是普通用能看板"
-            description="PDF 材料中的技术重点并不是展示电量图表，而是把电能交易、调频容量、碳排责任和用户响应成本放入上下层交替求解框架。"
-          />
+        <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div>
+            <p className="mb-5 text-sm font-semibold uppercase tracking-[0.28em] text-emerald-300">
+              Digital Platform
+            </p>
+            <h2 className="text-balance text-4xl font-semibold tracking-tight md:text-6xl">
+              数字化不是看板，而是自动出清和交易控制
+            </h2>
+            <p className="mt-6 text-pretty text-lg leading-8 text-slate-300">
+              参考金风数字能源页面的“感知、预测、策略、控制”表达，我们把它落到园区电能与调频联合出清：从数据准备到模型结果，形成可审计的决策链路。
+            </p>
+          </div>
 
           <div className="grid gap-4">
-            {modelLayers.map((layer) => (
-              <article
-                key={layer.title}
-                className="rounded-2xl border border-slate-200 bg-slate-50 p-6"
-              >
+            {modelLayers.map((item) => (
+              <article key={item.title} className="border border-white/12 bg-white/[0.04] p-7">
                 <div className="flex gap-5">
-                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-white text-emerald-700 shadow-sm">
-                    <layer.icon className="size-6" aria-hidden="true" />
+                  <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-emerald-400/14 text-emerald-200">
+                    <item.icon className="size-6" aria-hidden="true" />
                   </span>
                   <div>
-                    <h3 className="text-xl font-semibold text-slate-950">{layer.title}</h3>
-                    <p className="mt-3 leading-8 text-slate-600">{layer.text}</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-300">
+                      {item.kicker}
+                    </p>
+                    <h3 className="mt-3 text-2xl font-semibold">{item.title}</h3>
+                    <p className="mt-4 leading-8 text-slate-300">{item.text}</p>
                   </div>
                 </div>
               </article>
@@ -507,83 +411,44 @@ function Technology() {
 
 function Validation() {
   return (
-    <section id="validation" className="bg-[#eef6f3] px-5 py-24">
+    <section id="validation" className="bg-[#eef6f3] px-5 py-24 md:py-32">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <div className="rounded-3xl bg-white p-6 shadow-xl shadow-emerald-950/10">
-            <div className="rounded-2xl border border-slate-200 bg-slate-950 p-6 text-white">
-              <div className="mb-8 flex items-center justify-between">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-300">
-                    Validation
-                  </p>
-                  <h3 className="mt-2 text-2xl font-semibold">模拟工业园区运行结果</h3>
-                </div>
-                <LineChart className="size-8 text-emerald-300" aria-hidden="true" />
-              </div>
+        <SectionTitle
+          eyebrow="Validation"
+          title="用调研、模型和验收建立项目可信度"
+          description="当前阶段先展示真实研发与验证路径，避免虚构大型商业客户。后续可以把这里升级为正式园区案例库。"
+        />
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-2xl bg-white/[0.06] p-5">
-                  <p className="text-sm text-slate-400">综合运营成本</p>
-                  <p className="mt-3 text-4xl font-semibold">-4.29%</p>
-                  <p className="mt-3 text-sm leading-6 text-slate-400">
-                    通过碳排激励引导用户响应，降低园区整体交易与运营成本。
-                  </p>
-                </div>
-                <div className="rounded-2xl bg-white/[0.06] p-5">
-                  <p className="text-sm text-slate-400">可调资源利用率</p>
-                  <p className="mt-3 text-4xl font-semibold">&gt;=83%</p>
-                  <p className="mt-3 text-sm leading-6 text-slate-400">
-                    挖掘用电侧储能与负荷响应能力，支撑调频辅助服务参与。
-                  </p>
-                </div>
+        <div className="mt-16 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="bg-white p-8 shadow-sm">
+            <LineChart className="mb-10 size-10 text-emerald-700" aria-hidden="true" />
+            <div className="grid gap-8 sm:grid-cols-2">
+              <div>
+                <p className="text-sm text-slate-500">综合运营成本</p>
+                <p className="mt-3 text-5xl font-semibold tracking-tight text-slate-950">
+                  -4.29%
+                </p>
+                <p className="mt-4 leading-7 text-slate-600">
+                  通过碳排激励引导用户响应，降低园区整体交易与运营成本。
+                </p>
+              </div>
+              <div>
+                <p className="text-sm text-slate-500">可调资源利用率</p>
+                <p className="mt-3 text-5xl font-semibold tracking-tight text-slate-950">
+                  &gt;=83%
+                </p>
+                <p className="mt-4 leading-7 text-slate-600">
+                  挖掘用电侧储能与负荷响应能力，支撑调频辅助服务参与。
+                </p>
               </div>
             </div>
           </div>
 
-          <div>
-            <SectionHeader
-              eyebrow="Project Evidence"
-              title="用调研、模型开发和验收流程建立可信背书"
-              description="当前阶段应诚实呈现项目验证路径，避免虚构大型商业案例。官网先展示研发和试点证据，后续再替换为正式客户案例。"
-            />
-
-            <ul className="mt-8 space-y-4">
-              {validationItems.map((item) => (
-                <li key={item} className="flex gap-3 rounded-xl bg-white p-4 shadow-sm">
-                  <FileCheck2 className="mt-0.5 size-5 shrink-0 text-emerald-700" aria-hidden="true" />
-                  <span className="leading-7 text-slate-700">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Team() {
-  return (
-    <section id="team" className="bg-white px-5 py-24">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-          <SectionHeader
-            eyebrow="Team & Research"
-            title="电力系统、人工智能和创新创业团队共同推进"
-            description="团队来自长沙理工大学电气工程相关方向，围绕工业园区电力服务平台持续进行模型研发、调研验证和商业化路径设计。"
-          />
-
           <div className="grid gap-4 sm:grid-cols-2">
-            {teamHighlights.map((item, index) => (
-              <article
-                key={item}
-                className="rounded-2xl border border-slate-200 bg-slate-50 p-6"
-              >
-                <span className="mb-8 flex size-10 items-center justify-center rounded-full bg-emerald-700 text-sm font-semibold text-white">
-                  {index + 1}
-                </span>
-                <p className="leading-8 text-slate-700">{item}</p>
+            {validationItems.map((item) => (
+              <article key={item} className="bg-white p-6 shadow-sm">
+                <FileCheck2 className="mb-8 size-8 text-emerald-700" aria-hidden="true" />
+                <p className="text-lg font-semibold leading-8 text-slate-950">{item}</p>
               </article>
             ))}
           </div>
@@ -593,27 +458,60 @@ function Team() {
   );
 }
 
+function About() {
+  return (
+    <section id="about" className="bg-white px-5 py-24 md:py-32">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <div>
+            <LogoMark />
+            <h2 className="mt-12 text-balance text-4xl font-semibold tracking-tight text-slate-950 md:text-6xl">
+              以电力系统算法服务园区绿色经营
+            </h2>
+          </div>
+          <div className="space-y-8 text-lg leading-9 text-slate-600">
+            <p>
+              智碳联算由长沙理工大学电气工程与人工智能交叉团队推进，围绕工业园区电力服务平台持续进行模型研发、调研验证和商业化路径设计。
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {[
+                "联合出清模型",
+                "碳流核算算法",
+                "需求响应机制",
+                "调频辅助服务",
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-3 border-t border-slate-200 pt-5">
+                  <CheckCircle2 className="size-5 shrink-0 text-emerald-700" aria-hidden="true" />
+                  <span className="font-semibold text-slate-950">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
   return (
-    <section id="contact" className="bg-slate-950 px-5 py-24 text-white">
-      <div className="mx-auto max-w-7xl rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.08] to-emerald-400/[0.08] p-7 md:p-12">
-        <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
+    <section id="contact" className="bg-emerald-950 px-5 py-24 text-white md:py-32">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-12 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-emerald-300">
+            <p className="mb-5 text-sm font-semibold uppercase tracking-[0.28em] text-emerald-200">
               Partnership
             </p>
-            <h2 className="text-balance text-3xl font-semibold tracking-tight md:text-5xl">
+            <h2 className="max-w-4xl text-balance text-4xl font-semibold tracking-tight md:text-6xl">
               面向园区、能源集团与科研场景开放合作
             </h2>
-            <p className="mt-5 max-w-3xl text-pretty leading-8 text-slate-300">
-              当前官网建议先承接项目展示、比赛路演和合作沟通。正式商业联系方式确定后，
-              可在这里补充电话、邮箱、地址和备案信息。
+            <p className="mt-6 max-w-3xl text-pretty text-lg leading-8 text-emerald-50/78">
+              正式商业联系方式确定后，可在这里补充电话、邮箱、地址和备案信息。当前版本先承接项目展示、比赛路演和合作沟通。
             </p>
           </div>
-
-          <div className="rounded-2xl bg-white px-7 py-5 text-slate-950 shadow-xl">
-            <p className="text-sm font-semibold">正式发布前待补充</p>
-            <p className="mt-2 text-sm leading-6 text-slate-600">
+          <div className="border border-white/18 p-6">
+            <p className="text-sm font-semibold text-white">待补充</p>
+            <p className="mt-2 leading-7 text-emerald-50/72">
               公司邮箱、电话、地址与备案信息
             </p>
           </div>
@@ -625,20 +523,10 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-white px-5 py-10">
-      <div className="mx-auto flex max-w-7xl flex-col gap-5 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
-        <div className="flex items-center gap-3">
-          <span className="flex size-9 items-center justify-center rounded-lg bg-emerald-700 text-white">
-            <Leaf className="size-5" aria-hidden="true" />
-          </span>
-          <span>
-            <span className="block font-semibold text-slate-950">
-              长沙智碳联算科技有限责任公司
-            </span>
-            <span>面向工业园区的低碳电能与调频联合市场出清系统</span>
-          </span>
-        </div>
-        <p>© 2026 智碳联算. 当前为项目展示官网。</p>
+    <footer className="bg-[#081a14] px-5 py-10 text-white/62">
+      <div className="mx-auto flex max-w-7xl flex-col gap-6 text-sm md:flex-row md:items-center md:justify-between">
+        <LogoMark light />
+        <p>© 2026 长沙智碳联算科技有限责任公司. 当前为项目展示官网。</p>
       </div>
     </footer>
   );
@@ -647,15 +535,13 @@ function Footer() {
 export default function Home() {
   return (
     <main className="min-h-screen bg-white text-slate-950">
-      <SiteHeader />
       <Hero />
-      <MetricBand />
-      <Challenges />
+      <CarbonIntro />
       <Solutions />
-      <Platform />
-      <Technology />
+      <EnergyPlatform />
+      <DigitalModel />
       <Validation />
-      <Team />
+      <About />
       <Contact />
       <Footer />
     </main>

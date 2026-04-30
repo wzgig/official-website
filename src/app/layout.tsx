@@ -35,10 +35,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://wzgig.github.io/official-website/images/low-carbon-industrial-park.png",
+        url: "https://wzgig.github.io/official-website/images/zhicarbon-eco-hero.png",
         width: 1672,
         height: 941,
-        alt: "智碳联算低碳工业园区主视觉",
+        alt: "智碳联算生态能源主视觉",
       },
     ],
   },
