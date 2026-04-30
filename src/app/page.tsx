@@ -506,14 +506,17 @@ function Contact() {
               面向园区、能源集团与科研场景开放合作
             </h2>
             <p className="mt-6 max-w-3xl text-pretty text-lg leading-8 text-emerald-50/78">
-              正式商业联系方式确定后，可在这里补充电话、邮箱、地址和备案信息。当前版本先承接项目展示、比赛路演和合作沟通。
+              欢迎与我们联系，共同探索工业园区低碳运营的更多可能。
             </p>
           </div>
-          <div className="border border-white/18 p-6">
-            <p className="text-sm font-semibold text-white">待补充</p>
-            <p className="mt-2 leading-7 text-emerald-50/72">
-              公司邮箱、电话、地址与备案信息
-            </p>
+          <div className="border border-white/18 p-6 min-w-[320px]">
+            <p className="text-lg font-semibold text-white mb-4">联系我们</p>
+            <div className="space-y-3 text-emerald-50/80">
+              <p><strong>联系人：</strong>王子成</p>
+              <p><strong>电话：</strong>19074917487</p>
+              <p><strong>邮箱：</strong>qqiuqiuhua@gmail.com</p>
+              <p><strong>地址：</strong>长沙市天心区长沙理工大学云塘校区工程训练中心210室</p>
+            </div>
           </div>
         </div>
       </div>
@@ -526,7 +529,10 @@ function Footer() {
     <footer className="bg-[#081a14] px-5 py-10 text-white/62">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 text-sm md:flex-row md:items-center md:justify-between">
         <LogoMark light />
-        <p>© 2026 长沙智碳联算科技有限责任公司. 当前为项目展示官网。</p>
+        <div className="text-center md:text-right">
+          <p>© 2026 长沙智碳联算科技有限责任公司.</p>
+          <p className="mt-2 text-white/40">统一社会信用代码：91430103MAK3K4LG0X</p>
+        </div>
       </div>
     </footer>
   );
