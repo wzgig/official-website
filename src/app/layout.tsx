@@ -14,21 +14,24 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://wzgig.github.io/official-website/"),
-  title: "长沙智碳联算科技有限责任公司 | 低碳电能与调频联合市场出清系统",
+  title: "长沙智碳联算科技有限责任公司 | 零碳园区低碳电力服务平台",
   description:
-    "长沙智碳联算科技有限责任公司面向工业园区提供低碳电能管理、调频辅助服务、碳流核算与联合市场出清系统。",
+    "长沙智碳联算科技有限责任公司面向工业园区提供低碳电能管理、调频辅助服务、碳流核算、需求响应与联合市场出清平台。",
   keywords: [
     "智碳联算",
+    "零碳园区",
     "低碳电能",
     "工业园区",
     "调频辅助服务",
     "电力市场出清",
     "碳流核算",
+    "需求响应",
+    "负荷聚合",
   ],
   openGraph: {
-    title: "智碳联算 | 低碳电能与调频联合市场出清系统",
+    title: "智碳联算 | 零碳园区低碳电力服务平台",
     description:
-      "面向工业园区的低碳电能管理、调频辅助服务、碳流核算与联合市场出清系统。",
+      "面向工业园区的低碳电能管理、调频辅助服务、碳流核算、需求响应与联合市场出清平台。",
     url: "https://wzgig.github.io/official-website/",
     siteName: "智碳联算",
     locale: "zh_CN",
